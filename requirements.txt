@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic-settings
+qdrant-client
+FlagEmbedding
+pypdf
+slowapi
+pytest
+httpx
