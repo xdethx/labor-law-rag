@@ -10,10 +10,21 @@ import json
 import uuid
 from pathlib import Path
 
-from qdrant_client.models import Distance, PointStruct, VectorParams
+from qdrant_client.models import (
+    Distance,
+    PointStruct,
+    SparseVector,
+    SparseVectorParams,
+    VectorParams,
+)
 
-from src.config import DENSE_VECTOR_NAME, EMBEDDING_DIM, LAW_COLLECTION
-from src.embeddings import embed_dense
+from src.config import (
+    DENSE_VECTOR_NAME,
+    EMBEDDING_DIM,
+    LAW_COLLECTION,
+    SPARSE_VECTOR_NAME,
+)
+from src.embeddings import embed_hybrid, to_indices_values
 from src.retrieval import get_client
 
 ARTICLES_PATH = Path("data/processed/articles.json")
@@ -43,6 +54,7 @@ def build_collection(client) -> None:
         vectors_config={
             DENSE_VECTOR_NAME: VectorParams(size=EMBEDDING_DIM, distance=Distance.COSINE)
         },
+        sparse_vectors_config={SPARSE_VECTOR_NAME: SparseVectorParams()},
     )
 
 
@@ -51,16 +63,21 @@ def main() -> None:
     client = get_client()
     build_collection(client)
 
-    vectors = embed_dense([content_for(a) for a in articles])
+    dense_vectors, sparse_weights = embed_hybrid([content_for(a) for a in articles])
 
-    points = [
-        PointStruct(
-            id=str(uuid.uuid5(_POINT_NAMESPACE, article["article_id"])),
-            vector={DENSE_VECTOR_NAME: vector},
-            payload={**article, "source": "law"},
+    points = []
+    for article, dense, weights in zip(articles, dense_vectors, sparse_weights):
+        indices, values = to_indices_values(weights)
+        points.append(
+            PointStruct(
+                id=str(uuid.uuid5(_POINT_NAMESPACE, article["article_id"])),
+                vector={
+                    DENSE_VECTOR_NAME: dense,
+                    SPARSE_VECTOR_NAME: SparseVector(indices=indices, values=values),
+                },
+                payload={**article, "source": "law"},
+            )
         )
-        for article, vector in zip(articles, vectors)
-    ]
     client.upsert(collection_name=LAW_COLLECTION, points=points)
 
     print(f"Ingested {len(points)} points -> collection {LAW_COLLECTION!r}")

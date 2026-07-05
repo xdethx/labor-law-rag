@@ -123,9 +123,8 @@ def print_report(results: list[dict], aggregates: dict) -> None:
 
 
 def write_results(results: list[dict], aggregates: dict) -> Path:
-    from src.config import settings
-    from src.retrieval import get_client
-    from src.config import LAW_COLLECTION
+    from src.config import LAW_COLLECTION, settings
+    from src.retrieval import RETRIEVAL_MODE, get_client
 
     RESULTS_DIR.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
@@ -133,7 +132,7 @@ def write_results(results: list[dict], aggregates: dict) -> Path:
     payload = {
         "timestamp_utc": timestamp,
         "config": {
-            "retrieval": "dense-only",  # update at M3/M4
+            "retrieval": RETRIEVAL_MODE,
             "retrieve_k": RETRIEVE_K,
             "top_k_final": settings.top_k_final,
             "collection_points": get_client().count(LAW_COLLECTION).count,
