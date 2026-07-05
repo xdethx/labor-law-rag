@@ -1,0 +1,12 @@
+.env
+qdrant_storage/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Internal planning docs (not for public repo)
+CLAUDE.md
+STATE.md
+docs/*.md
+journal/*.md
+.claude/commands/*.md
