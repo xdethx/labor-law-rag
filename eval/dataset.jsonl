@@ -1,0 +1,30 @@
+{"question": "Yıllık ücretli izin süresi ne kadardır?", "expected_articles": ["madde-53"], "type": "direct"}
+{"question": "İşçinin günlük ara dinlenmesi ne kadar olmalı?", "expected_articles": ["madde-68"], "type": "direct"}
+{"question": "Gece çalışması en fazla kaç saat olabilir?", "expected_articles": ["madde-69"], "type": "direct"}
+{"question": "Kadın işçinin doğum izni kaç haftadır?", "expected_articles": ["madde-74"], "type": "direct"}
+{"question": "Çocuklar kaç yaşından itibaren çalıştırılabilir?", "expected_articles": ["madde-71"], "type": "direct"}
+{"question": "Asgari ücret nasıl belirlenir?", "expected_articles": ["madde-39"], "type": "direct"}
+{"question": "Hafta tatilinde çalışmayan işçiye ücret ödenir mi?", "expected_articles": ["madde-46"], "type": "direct"}
+{"question": "Deneme süresi en fazla ne kadar olabilir?", "expected_articles": ["madde-15"], "type": "direct"}
+{"question": "İşten çıkarılırken bana önceden haber vermeleri gerekmiyor mu?", "expected_articles": ["madde-17"], "type": "paraphrase"}
+{"question": "Patron maaşımı zamanında yatırmazsa ne yapabilirim?", "expected_articles": ["madde-34"], "type": "paraphrase"}
+{"question": "Mesaiye kaldığımızda ekstra para almamız gerekmez mi?", "expected_articles": ["madde-41"], "type": "paraphrase"}
+{"question": "Haksız yere kovuldum, işe geri dönebilir miyim?", "expected_articles": ["madde-20", "madde-21"], "type": "paraphrase"}
+{"question": "Hamile çalışanlar doğumdan önce ne zaman izne ayrılır?", "expected_articles": ["madde-74"], "type": "paraphrase"}
+{"question": "İş yerim başka bir şirkete satıldı, haklarım ne olur?", "expected_articles": ["madde-6"], "type": "paraphrase"}
+{"question": "Aynı işi yapan kadın ve erkeğe farklı maaş verilebilir mi?", "expected_articles": ["madde-5"], "type": "paraphrase"}
+{"question": "Kıdem tazminatı hangi hükümlere göre ödenir?", "expected_articles": ["gecici-6", "madde-120"], "type": "exact-term"}
+{"question": "İhbar süresi kıdeme göre nasıl değişir?", "expected_articles": ["madde-17"], "type": "exact-term"}
+{"question": "Telafi çalışması hangi hallerde yaptırılabilir?", "expected_articles": ["madde-64"], "type": "exact-term"}
+{"question": "Kısa çalışma ödeneği nedir?", "expected_articles": ["madde-65"], "type": "exact-term"}
+{"question": "Toplu işçi çıkarma prosedürü nedir?", "expected_articles": ["madde-29"], "type": "exact-term"}
+{"question": "Çağrı üzerine çalışma sözleşmesi nedir?", "expected_articles": ["madde-14"], "type": "exact-term"}
+{"question": "Madde 63 ne diyor?", "expected_articles": ["madde-63"], "type": "article-number"}
+{"question": "İş Kanunu madde 41 neyi düzenliyor?", "expected_articles": ["madde-41"], "type": "article-number"}
+{"question": "Madde 25'e göre işveren hangi hallerde derhal fesih yapabilir?", "expected_articles": ["madde-25"], "type": "article-number"}
+{"question": "Geçici madde 6 ne hakkında?", "expected_articles": ["gecici-6"], "type": "article-number"}
+{"question": "4857 sayılı kanunun 24. maddesi ne diyor?", "expected_articles": ["madde-24"], "type": "article-number"}
+{"question": "Boşanma davası nasıl açılır?", "expected_articles": [], "type": "off-corpus"}
+{"question": "Kiracı evden nasıl çıkarılır?", "expected_articles": [], "type": "off-corpus"}
+{"question": "Trafik cezasına nasıl itiraz edilir?", "expected_articles": [], "type": "off-corpus"}
+{"question": "Miras paylaşımı nasıl yapılır?", "expected_articles": [], "type": "off-corpus"}
