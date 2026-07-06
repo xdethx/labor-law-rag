@@ -47,6 +47,13 @@ class Settings(BaseSettings):
     contract_max_pages: int = 20
     top_k_contract: int = 3
 
+    # Contract analysis (M6) — law articles retrieved per clause. Tighter than
+    # top_k_final: /analyze makes one LLM call per clause, so context stays small.
+    top_k_analyze: int = 3
+    # Pause between clause LLM calls; raise (e.g. 3–5 s) if the provider's
+    # per-minute token window keeps 429-ing mid-report. 0 = off.
+    analyze_clause_delay_seconds: float = 0.0
+
 
 settings = Settings()
 
