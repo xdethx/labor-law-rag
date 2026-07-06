@@ -41,8 +41,11 @@ class Settings(BaseSettings):
     top_k_final: int = 5
     top_k_rerank_candidates: int = 50
 
-    # Contract corpus TTL (M5+)
+    # Contract corpus (M5)
     contract_ttl_hours: int = 24
+    contract_max_mb: int = 5
+    contract_max_pages: int = 20
+    top_k_contract: int = 3
 
 
 settings = Settings()
