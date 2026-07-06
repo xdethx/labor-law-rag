@@ -1,0 +1,774 @@
+{
+  "timestamp_utc": "20260705T235336Z",
+  "config": {
+    "retrieval": "hybrid-rrf-rerank",
+    "retrieve_k": 10,
+    "top_k_final": 5,
+    "collection_points": 128
+  },
+  "latency": {
+    "mean_ms": 41741.5,
+    "p95_ms": 45413.6
+  },
+  "aggregates": {
+    "article-number": {
+      "n": 5,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 1.0
+    },
+    "direct": {
+      "n": 8,
+      "recall@5": 1.0,
+      "recall@10": 1.0,
+      "mrr@10": 1.0
+    },
+    "exact-term": {
+      "n": 6,
+      "recall@5": 0.75,
+      "recall@10": 0.9166666666666666,
+      "mrr@10": 0.7777777777777778
+    },
+    "off-corpus": {
+      "n": 4
+    },
+    "paraphrase": {
+      "n": 7,
+      "recall@5": 0.7142857142857143,
+      "recall@10": 0.8571428571428571,
+      "mrr@10": 0.5476190476190477
+    },
+    "OVERALL": {
+      "n": 26,
+      "recall@5": 0.8653846153846154,
+      "recall@10": 0.9423076923076923,
+      "mrr@10": 0.8269230769230769
+    }
+  },
+  "items": [
+    {
+      "question": "Yıllık ücretli izin süresi ne kadardır?",
+      "expected_articles": [
+        "madde-53"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-53",
+        "madde-56",
+        "madde-54",
+        "madde-55",
+        "madde-57",
+        "madde-59",
+        "madde-74",
+        "madde-60",
+        "madde-61",
+        "madde-58"
+      ],
+      "latency_ms": 54128.9,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "İşçinin günlük ara dinlenmesi ne kadar olmalı?",
+      "expected_articles": [
+        "madde-68"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-68",
+        "madde-46",
+        "madde-76",
+        "madde-104",
+        "madde-67",
+        "madde-69",
+        "madde-42",
+        "madde-56",
+        "madde-27",
+        "madde-64"
+      ],
+      "latency_ms": 39798.1,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Gece çalışması en fazla kaç saat olabilir?",
+      "expected_articles": [
+        "madde-69"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-69",
+        "madde-41",
+        "madde-104",
+        "madde-64",
+        "madde-63",
+        "madde-76",
+        "madde-71",
+        "madde-68",
+        "madde-73",
+        "madde-102"
+      ],
+      "latency_ms": 44303.3,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Kadın işçinin doğum izni kaç haftadır?",
+      "expected_articles": [
+        "madde-74"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-74",
+        "madde-55",
+        "madde-25",
+        "madde-104",
+        "madde-18",
+        "madde-46",
+        "madde-54",
+        "madde-56",
+        "madde-53",
+        "madde-63"
+      ],
+      "latency_ms": 43749.5,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Çocuklar kaç yaşından itibaren çalıştırılabilir?",
+      "expected_articles": [
+        "madde-71"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-71",
+        "madde-85",
+        "madde-73",
+        "madde-87",
+        "madde-74",
+        "madde-72",
+        "madde-104",
+        "madde-105",
+        "madde-53",
+        "madde-88"
+      ],
+      "latency_ms": 44658.3,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Asgari ücret nasıl belirlenir?",
+      "expected_articles": [
+        "madde-39"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-39",
+        "gecici-3",
+        "madde-102",
+        "madde-32",
+        "madde-111",
+        "gecici-5",
+        "madde-50",
+        "madde-49",
+        "madde-47",
+        "madde-13"
+      ],
+      "latency_ms": 45413.6,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Hafta tatilinde çalışmayan işçiye ücret ödenir mi?",
+      "expected_articles": [
+        "madde-46"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-46",
+        "madde-47",
+        "madde-57",
+        "madde-48",
+        "madde-40",
+        "madde-49",
+        "madde-50",
+        "madde-44",
+        "madde-37",
+        "madde-45"
+      ],
+      "latency_ms": 42112.8,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Deneme süresi en fazla ne kadar olabilir?",
+      "expected_articles": [
+        "madde-15"
+      ],
+      "type": "direct",
+      "retrieved": [
+        "madde-15",
+        "madde-53",
+        "madde-10",
+        "madde-76",
+        "madde-40",
+        "madde-63",
+        "madde-71",
+        "madde-69",
+        "madde-68",
+        "madde-64"
+      ],
+      "latency_ms": 45161.9,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "İşten çıkarılırken bana önceden haber vermeleri gerekmiyor mu?",
+      "expected_articles": [
+        "madde-17"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-29",
+        "madde-27",
+        "madde-24",
+        "madde-25",
+        "madde-96",
+        "madde-17",
+        "madde-28",
+        "madde-3",
+        "madde-1",
+        "madde-22"
+      ],
+      "latency_ms": 41934.6,
+      "metrics": {
+        "recall@5": 0.0,
+        "recall@10": 1.0,
+        "mrr@10": 0.16666666666666666
+      }
+    },
+    {
+      "question": "Patron maaşımı zamanında yatırmazsa ne yapabilirim?",
+      "expected_articles": [
+        "madde-34"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-102",
+        "madde-104",
+        "madde-34",
+        "madde-38",
+        "madde-98",
+        "madde-108",
+        "madde-17",
+        "madde-107",
+        "madde-21",
+        "madde-24"
+      ],
+      "latency_ms": 39055.0,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333
+      }
+    },
+    {
+      "question": "Mesaiye kaldığımızda ekstra para almamız gerekmez mi?",
+      "expected_articles": [
+        "madde-41"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-51",
+        "madde-50",
+        "madde-57",
+        "madde-38",
+        "madde-35",
+        "madde-104",
+        "madde-12",
+        "madde-101",
+        "madde-32",
+        "madde-13"
+      ],
+      "latency_ms": 34503.2,
+      "metrics": {
+        "recall@5": 0.0,
+        "recall@10": 0.0,
+        "mrr@10": 0.0
+      }
+    },
+    {
+      "question": "Haksız yere kovuldum, işe geri dönebilir miyim?",
+      "expected_articles": [
+        "madde-20",
+        "madde-21"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-31",
+        "madde-96",
+        "madde-21",
+        "madde-20",
+        "madde-25",
+        "madde-65",
+        "madde-22",
+        "madde-28",
+        "madde-24",
+        "madde-23"
+      ],
+      "latency_ms": 40430.3,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 0.3333333333333333
+      }
+    },
+    {
+      "question": "Hamile çalışanlar doğumdan önce ne zaman izne ayrılır?",
+      "expected_articles": [
+        "madde-74"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-74",
+        "madde-104",
+        "madde-55",
+        "madde-46",
+        "madde-25",
+        "madde-18",
+        "madde-88",
+        "madde-56",
+        "madde-53",
+        "madde-60"
+      ],
+      "latency_ms": 38602.8,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "İş yerim başka bir şirkete satıldı, haklarım ne olur?",
+      "expected_articles": [
+        "madde-6"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-6",
+        "madde-7",
+        "madde-2",
+        "madde-1",
+        "madde-3",
+        "madde-25",
+        "madde-36",
+        "madde-54",
+        "madde-23",
+        "madde-83"
+      ],
+      "latency_ms": 35268.7,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Aynı işi yapan kadın ve erkeğe farklı maaş verilebilir mi?",
+      "expected_articles": [
+        "madde-5"
+      ],
+      "type": "paraphrase",
+      "retrieved": [
+        "madde-5",
+        "madde-12",
+        "madde-13",
+        "madde-18",
+        "madde-104",
+        "madde-8",
+        "madde-62",
+        "madde-72",
+        "madde-78",
+        "madde-39"
+      ],
+      "latency_ms": 37852.2,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Kıdem tazminatı hangi hükümlere göre ödenir?",
+      "expected_articles": [
+        "gecici-6",
+        "madde-120"
+      ],
+      "type": "exact-term",
+      "retrieved": [
+        "madde-112",
+        "gecici-6",
+        "gecici-4",
+        "madde-21",
+        "madde-12",
+        "madde-17",
+        "madde-48",
+        "madde-40",
+        "madde-49",
+        "madde-18"
+      ],
+      "latency_ms": 36326.4,
+      "metrics": {
+        "recall@5": 0.5,
+        "recall@10": 0.5,
+        "mrr@10": 0.5
+      }
+    },
+    {
+      "question": "İhbar süresi kıdeme göre nasıl değişir?",
+      "expected_articles": [
+        "madde-17"
+      ],
+      "type": "exact-term",
+      "retrieved": [
+        "madde-12",
+        "madde-21",
+        "madde-25",
+        "madde-18",
+        "madde-27",
+        "madde-17",
+        "madde-109",
+        "madde-3",
+        "madde-22",
+        "madde-15"
+      ],
+      "latency_ms": 37589.8,
+      "metrics": {
+        "recall@5": 0.0,
+        "recall@10": 1.0,
+        "mrr@10": 0.16666666666666666
+      }
+    },
+    {
+      "question": "Telafi çalışması hangi hallerde yaptırılabilir?",
+      "expected_articles": [
+        "madde-64"
+      ],
+      "type": "exact-term",
+      "retrieved": [
+        "madde-64",
+        "madde-42",
+        "madde-41",
+        "madde-24",
+        "madde-62",
+        "madde-25",
+        "madde-23",
+        "madde-34",
+        "madde-115",
+        "madde-74"
+      ],
+      "latency_ms": 38831.3,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Kısa çalışma ödeneği nedir?",
+      "expected_articles": [
+        "madde-65"
+      ],
+      "type": "exact-term",
+      "retrieved": [
+        "madde-65",
+        "madde-55",
+        "madde-48",
+        "madde-68",
+        "madde-13",
+        "madde-41",
+        "madde-40",
+        "madde-64",
+        "madde-104",
+        "madde-63"
+      ],
+      "latency_ms": 36176.8,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Toplu işçi çıkarma prosedürü nedir?",
+      "expected_articles": [
+        "madde-29"
+      ],
+      "type": "exact-term",
+      "retrieved": [
+        "madde-29",
+        "madde-7",
+        "madde-20",
+        "madde-100",
+        "madde-18",
+        "madde-27",
+        "madde-89",
+        "madde-34",
+        "madde-38",
+        "madde-30"
+      ],
+      "latency_ms": 37514.3,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Çağrı üzerine çalışma sözleşmesi nedir?",
+      "expected_articles": [
+        "madde-14"
+      ],
+      "type": "exact-term",
+      "retrieved": [
+        "madde-14",
+        "madde-8",
+        "madde-13",
+        "madde-9",
+        "madde-11",
+        "madde-1",
+        "madde-7",
+        "madde-12",
+        "madde-16",
+        "madde-31"
+      ],
+      "latency_ms": 40587.3,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Madde 63 ne diyor?",
+      "expected_articles": [
+        "madde-63"
+      ],
+      "type": "article-number",
+      "retrieved": [
+        "madde-63",
+        "madde-41",
+        "madde-46",
+        "madde-104",
+        "madde-76",
+        "madde-1",
+        "madde-73",
+        "madde-6",
+        "madde-33",
+        "madde-30"
+      ],
+      "latency_ms": 40992.4,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "İş Kanunu madde 41 neyi düzenliyor?",
+      "expected_articles": [
+        "madde-41"
+      ],
+      "type": "article-number",
+      "retrieved": [
+        "madde-41",
+        "madde-1",
+        "madde-42",
+        "madde-43",
+        "madde-102",
+        "madde-75",
+        "madde-3",
+        "madde-31",
+        "madde-4",
+        "madde-2"
+      ],
+      "latency_ms": 45025.5,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Madde 25'e göre işveren hangi hallerde derhal fesih yapabilir?",
+      "expected_articles": [
+        "madde-25"
+      ],
+      "type": "article-number",
+      "retrieved": [
+        "madde-25",
+        "madde-26",
+        "madde-24",
+        "madde-19",
+        "madde-6",
+        "madde-18",
+        "madde-22",
+        "madde-83",
+        "madde-31",
+        "madde-23"
+      ],
+      "latency_ms": 42331.9,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Geçici madde 6 ne hakkında?",
+      "expected_articles": [
+        "gecici-6"
+      ],
+      "type": "article-number",
+      "retrieved": [
+        "gecici-6",
+        "gecici-4",
+        "madde-10",
+        "madde-6",
+        "gecici-1",
+        "madde-7",
+        "madde-65",
+        "gecici-2",
+        "gecici-5",
+        "gecici-3"
+      ],
+      "latency_ms": 43594.7,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "4857 sayılı kanunun 24. maddesi ne diyor?",
+      "expected_articles": [
+        "madde-24"
+      ],
+      "type": "article-number",
+      "retrieved": [
+        "madde-24",
+        "madde-34",
+        "madde-83",
+        "madde-1",
+        "madde-2",
+        "gecici-1",
+        "madde-80",
+        "madde-22",
+        "madde-4",
+        "madde-45"
+      ],
+      "latency_ms": 43947.1,
+      "metrics": {
+        "recall@5": 1.0,
+        "recall@10": 1.0,
+        "mrr@10": 1.0
+      }
+    },
+    {
+      "question": "Boşanma davası nasıl açılır?",
+      "expected_articles": [],
+      "type": "off-corpus",
+      "retrieved": [
+        "madde-20",
+        "madde-22",
+        "madde-29",
+        "madde-28",
+        "madde-109",
+        "madde-31",
+        "madde-23",
+        "madde-15",
+        "madde-19",
+        "madde-24"
+      ],
+      "latency_ms": 44866.3
+    },
+    {
+      "question": "Kiracı evden nasıl çıkarılır?",
+      "expected_articles": [],
+      "type": "off-corpus",
+      "retrieved": [
+        "madde-29",
+        "madde-89",
+        "madde-119",
+        "madde-7",
+        "madde-18",
+        "madde-38",
+        "madde-100",
+        "madde-104",
+        "madde-102",
+        "madde-20"
+      ],
+      "latency_ms": 47875.6
+    },
+    {
+      "question": "Trafik cezasına nasıl itiraz edilir?",
+      "expected_articles": [],
+      "type": "off-corpus",
+      "retrieved": [
+        "madde-108",
+        "madde-87",
+        "madde-109",
+        "madde-79",
+        "madde-86",
+        "madde-98",
+        "madde-104",
+        "madde-101",
+        "madde-105",
+        "madde-38"
+      ],
+      "latency_ms": 44885.9
+    },
+    {
+      "question": "Miras paylaşımı nasıl yapılır?",
+      "expected_articles": [],
+      "type": "off-corpus",
+      "retrieved": [
+        "madde-109",
+        "madde-35",
+        "madde-3",
+        "madde-6",
+        "madde-115",
+        "madde-51",
+        "madde-119",
+        "madde-52",
+        "madde-108",
+        "madde-2"
+      ],
+      "latency_ms": 44727.5
+    }
+  ]
+}

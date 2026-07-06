@@ -39,6 +39,7 @@ class Settings(BaseSettings):
     top_k_dense: int = 20
     top_k_sparse: int = 20
     top_k_final: int = 5
+    top_k_rerank_candidates: int = 50
 
     # Contract corpus TTL (M5+)
     contract_ttl_hours: int = 24
@@ -49,6 +50,9 @@ settings = Settings()
 # Embedding model — the SAME model embeds documents and queries (see ARCHITECTURE §2.1).
 EMBEDDING_MODEL = "BAAI/bge-m3"
 EMBEDDING_DIM = 1024
+
+# Cross-encoder reranker (M4, flag-gated via RERANK_ENABLED — ARCHITECTURE §2.4).
+RERANKER_MODEL = "BAAI/bge-reranker-v2-m3"
 
 # Qdrant collections / named vectors
 LAW_COLLECTION = "law"

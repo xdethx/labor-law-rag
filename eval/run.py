@@ -11,6 +11,7 @@ they are counted but excluded from the metrics.
 """
 
 import json
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -72,9 +73,11 @@ def evaluate(items: list[dict]) -> list[dict]:
 
     results = []
     for item in items:
+        started = time.perf_counter()
         chunks = retrieve_law(item["question"], top_k=RETRIEVE_K)
+        latency_ms = (time.perf_counter() - started) * 1000
         retrieved = [c["article_id"] for c in chunks]
-        result = {**item, "retrieved": retrieved}
+        result = {**item, "retrieved": retrieved, "latency_ms": round(latency_ms, 1)}
         if item["expected_articles"]:
             result["metrics"] = {
                 **{f"recall@{k}": recall_at_k(item["expected_articles"], retrieved, k) for k in K_VALUES},
@@ -104,6 +107,16 @@ def aggregate(results: list[dict]) -> dict:
     return aggregates
 
 
+def latency_summary(results: list[dict]) -> dict:
+    """Mean and p95 retrieval latency over all items (rerank cost shows up here)."""
+    latencies = sorted(r["latency_ms"] for r in results)
+    p95_index = max(0, int(len(latencies) * 0.95) - 1)
+    return {
+        "mean_ms": round(sum(latencies) / len(latencies), 1),
+        "p95_ms": latencies[p95_index],
+    }
+
+
 def print_report(results: list[dict], aggregates: dict) -> None:
     metric_cols = ["recall@5", "recall@10", "mrr@10"]
     print(f"\n{'type':<16} {'n':>3}  " + "  ".join(f"{c:>9}" for c in metric_cols))
@@ -113,6 +126,9 @@ def print_report(results: list[dict], aggregates: dict) -> None:
             f"{agg[c]:>9.3f}" if c in agg else f"{'n/a':>9}" for c in metric_cols
         )
         print(f"{type_name:<16} {agg['n']:>3}  {cells}")
+
+    latency = latency_summary(results)
+    print(f"\nRetrieval latency: mean {latency['mean_ms']} ms, p95 {latency['p95_ms']} ms")
 
     misses = [r for r in results if "metrics" in r and r["metrics"]["recall@5"] < 1.0]
     if misses:
@@ -137,6 +153,7 @@ def write_results(results: list[dict], aggregates: dict) -> Path:
             "top_k_final": settings.top_k_final,
             "collection_points": get_client().count(LAW_COLLECTION).count,
         },
+        "latency": latency_summary(results),
         "aggregates": aggregates,
         "items": results,
     }
