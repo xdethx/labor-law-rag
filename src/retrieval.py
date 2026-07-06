@@ -213,6 +213,35 @@ def retrieve_contract(question: str, session_id: str, top_k: int | None = None) 
     )
 
 
+def get_session_clauses(session_id: str) -> list[dict]:
+    """Return ALL clause payloads of a session, sorted by clause_no (M6:
+    /analyze iterates over the full contract, not a retrieved subset).
+    Empty list if the collection or the session doesn't exist."""
+    client = get_client()
+    if not client.collection_exists(CONTRACTS_COLLECTION):
+        return []
+
+    session_filter = QdrantFilter(
+        must=[FieldCondition(key="session_id", match=MatchValue(value=session_id))]
+    )
+    clauses: list[dict] = []
+    offset = None
+    while True:
+        points, offset = client.scroll(
+            collection_name=CONTRACTS_COLLECTION,
+            scroll_filter=session_filter,
+            limit=256,
+            offset=offset,
+            with_payload=True,
+            with_vectors=False,
+        )
+        clauses.extend(point.payload for point in points)
+        if offset is None:
+            break
+    clauses.sort(key=lambda clause: clause["clause_no"])
+    return clauses
+
+
 def delete_contract(session_id: str) -> None:
     """Delete all points for a session. Idempotent: deleting an unknown or
     already-deleted session is a no-op."""

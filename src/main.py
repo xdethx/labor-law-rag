@@ -1,4 +1,5 @@
-"""FastAPI app: POST /ask, POST /contracts, DELETE /contracts/{id}, GET /health.
+"""FastAPI app: POST /ask, POST /contracts, POST /analyze,
+DELETE /contracts/{id}, GET /health.
 
 Grounding contract (CLAUDE.md, non-negotiable): every legal claim cites an
 article actually retrieved; no supporting chunk -> say the corpus doesn't
@@ -7,7 +8,9 @@ cover it; sources are always returned; the disclaimer is always appended.
 
 import hmac
 import uuid
+from collections import Counter
 from contextlib import asynccontextmanager
+from typing import Literal
 
 from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
 from pydantic import BaseModel
@@ -17,12 +20,14 @@ from slowapi.errors import RateLimitExceeded
 from slowapi.util import get_remote_address
 
 from src import llm
+from src.analysis import ErrorReason, RelatedArticle, analyze_contract
 from src.config import CONTRACTS_COLLECTION, DISCLAIMER, LAW_COLLECTION, settings
 from src.contracts import EncryptedPDFError, extract_contract_text, split_clauses
 from src.retrieval import (
     delete_contract,
     ensure_contracts_collection,
     get_client,
+    get_session_clauses,
     retrieve_contract,
     retrieve_law,
     sweep_expired_contracts,
@@ -85,6 +90,38 @@ class ContractUploadResponse(BaseModel):
 
 class ContractDeleteResponse(BaseModel):
     deleted: bool
+
+
+class AnalyzeRequest(BaseModel):
+    session_id: str
+
+
+class ClauseAnalysis(BaseModel):
+    clause_no: int
+    clause_text: str
+    # "error" exists only here: it marks a clause whose analysis failed after
+    # the retry — the LLM-facing schema (src/analysis.py) can never claim it.
+    verdict: Literal["compliant", "risky", "conflicts", "not_addressed", "error"]
+    related_articles: list[RelatedArticle]
+    explanation: str
+    # Set only when verdict == "error": why the clause failed.
+    error_reason: ErrorReason | None = None
+
+
+class AnalyzeSummary(BaseModel):
+    compliant: int = 0
+    risky: int = 0
+    conflicts: int = 0
+    not_addressed: int = 0
+    error: int = 0
+
+
+class AnalyzeResponse(BaseModel):
+    session_id: str
+    clause_count: int
+    clauses: list[ClauseAnalysis]
+    summary: AnalyzeSummary
+    disclaimer: str
 
 
 def require_api_key(request: Request) -> None:
@@ -205,6 +242,29 @@ def upload_contract(
     session_id = str(uuid.uuid4())
     clause_count = upsert_contract_clauses(session_id, clauses)
     return ContractUploadResponse(session_id=session_id, clause_count=clause_count)
+
+
+@app.post("/analyze", response_model=AnalyzeResponse)
+@limiter.limit("3/minute")
+def analyze(
+    request: Request, body: AnalyzeRequest, _auth: None = Depends(require_api_key)
+) -> AnalyzeResponse:
+    """Evaluate every stored clause of a session against the law: per-clause
+    retrieval -> strict-JSON verdict (validated, 1 retry) -> aggregated report.
+    Rate-limited tighter than /ask — one request fans out to N LLM calls."""
+    clauses = get_session_clauses(body.session_id)
+    if not clauses:
+        raise HTTPException(status_code=404, detail="no contract found for this session")
+
+    results = analyze_contract(clauses)
+    summary = AnalyzeSummary(**Counter(result["verdict"] for result in results))
+    return AnalyzeResponse(
+        session_id=body.session_id,
+        clause_count=len(results),
+        clauses=[ClauseAnalysis(**result) for result in results],
+        summary=summary,
+        disclaimer=DISCLAIMER,
+    )
 
 
 @app.delete("/contracts/{session_id}", response_model=ContractDeleteResponse)
