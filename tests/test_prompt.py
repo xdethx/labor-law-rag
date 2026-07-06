@@ -31,3 +31,15 @@ def test_build_prompt_empty_context_still_well_formed():
     system, user = build_prompt("off-corpus question", [])
     assert "off-corpus question" in user
     assert "SADECE" in system
+
+
+def test_build_prompt_tags_mixed_law_and_contract_chunks():
+    chunks = [
+        {"article_type": "madde", "article_no": 15, "article_title": "Deneme süresi", "text": "MADDE 15. - ..."},
+        {"clause_no": 4, "text": "Deneme süresi dört aydır.", "source": "contract"},
+    ]
+    system, user = build_prompt("deneme süresi kanuna uygun mu?", chunks)
+
+    assert "[Madde 15]" in user
+    assert "[Sözleşme 4]" in user
+    assert "Sözleşme" in system  # system prompt explains the mixed-source case
