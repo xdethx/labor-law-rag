@@ -34,6 +34,24 @@ class Settings(BaseSettings):
     # API auth — fail-closed if unset (checked at request time, not import time).
     rag_api_key: str = ""
 
+    # CORS (M8): comma-separated origins allowed to call the API cross-origin.
+    # Empty = no cross-origin allowed. The BFF (Next.js route handlers) calls
+    # server-side, so this is defense-in-depth, not the primary access control.
+    cors_allowed_origins: str = ""
+
+    # Per-IP rate limits (M8: env-driven so prod can raise the /ask backstop
+    # once the BFF is the only caller — ARCHITECTURE §6). Same defaults as
+    # the milestones that introduced each endpoint.
+    rate_limit_ask: str = "10/minute"
+    rate_limit_contracts: str = "5/minute"
+    rate_limit_analyze: str = "3/minute"
+
+    # Global daily request budget across /ask + /analyze (M8 backstop for the
+    # public demo — Groq free tier exhausts fast). In-memory, day-keyed
+    # counter: resets on date rollover AND on process restart (accepted
+    # limitation for a single-instance demo). 0 = disabled.
+    daily_request_cap: int = 0
+
     # Retrieval
     rerank_enabled: bool = False
     top_k_dense: int = 20
