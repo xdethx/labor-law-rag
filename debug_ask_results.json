@@ -1,0 +1,137 @@
+[
+  {
+    "question": "kıdem tazminatı nasıl hesaplanır?",
+    "status_code": 200,
+    "response": {
+      "answer": "Bağlamda kıdem tazminatının hesabıyla ilgili bir madde bulunmuyor. [Madde 112], [Geçici Madde 4] ve [Geçici Madde 6] sadece kıdem tazminatı hakkının kimler için geçerli olduğunu, hangi tarihten itibaren hesaplandığını ve bir fon kurulacağını belirtiyor, ancak kıdem tazminatının hesabıyla ilgili bir açıklama içermiyor. Bu nedenle, kıdem tazminatının hesabıyla ilgili bilgi verilmemiştir.",
+      "sources": [
+        {
+          "article_no": 6,
+          "article_type": "gecici",
+          "article_title": null,
+          "repealed": false,
+          "score": 0.6627551
+        },
+        {
+          "article_no": 4,
+          "article_type": "gecici",
+          "article_title": null,
+          "repealed": false,
+          "score": 0.6493055
+        },
+        {
+          "article_no": 112,
+          "article_type": "madde",
+          "article_title": "Bazı kamu kurum ve kuruluşlarında çalışanların kıdem tazminatı",
+          "repealed": false,
+          "score": 0.6377809
+        },
+        {
+          "article_no": 18,
+          "article_type": "madde",
+          "article_title": "Feshin geçerli sebebe dayandırılması",
+          "repealed": false,
+          "score": 0.54474896
+        },
+        {
+          "article_no": 33,
+          "article_type": "madde",
+          "article_title": "İşverenin ödeme aczine düşmesi",
+          "repealed": false,
+          "score": 0.5359014
+        }
+      ],
+      "disclaimer": "Bu bilgilendirme amaçlıdır, hukuki tavsiye değildir."
+    }
+  },
+  {
+    "question": "madde 63 ne diyor",
+    "status_code": 200,
+    "response": {
+      "answer": "Bağlamda madde 63 hakkında herhangi bir bilgi bulunmamaktadır. Sadece [Madde 104]'de 63. maddenin çalışma sürelerine atıfta bulunulmaktadır, ancak metinde madde 63'in içeriği yer almamaktadır [Madde 104].",
+      "sources": [
+        {
+          "article_no": 113,
+          "article_type": "madde",
+          "article_title": "Bazı  işlerde çalışanların ücretlerinin güvencesi",
+          "repealed": false,
+          "score": 0.50263697
+        },
+        {
+          "article_no": 83,
+          "article_type": "madde",
+          "article_title": "İşçilerin hakları",
+          "repealed": false,
+          "score": 0.46871918
+        },
+        {
+          "article_no": 104,
+          "article_type": "madde",
+          "article_title": "İşin düzenlenmesine ilişkin hükümlere aykırılık",
+          "repealed": false,
+          "score": 0.46825084
+        },
+        {
+          "article_no": 96,
+          "article_type": "madde",
+          "article_title": "İşçi ve işverenin sorumluluğu",
+          "repealed": false,
+          "score": 0.4546008
+        },
+        {
+          "article_no": 30,
+          "article_type": "madde",
+          "article_title": "Özürlü, eski hükümlü ve terör mağduru çalıştırma zorunluluğu",
+          "repealed": false,
+          "score": 0.44358876
+        }
+      ],
+      "disclaimer": "Bu bilgilendirme amaçlıdır, hukuki tavsiye değildir."
+    }
+  },
+  {
+    "question": "boşanma davası nasıl açılır",
+    "status_code": 200,
+    "response": {
+      "answer": "Bu konu [Madde 20], [Madde 25], [Madde 31] ve [Madde 19] ve [Madde 21]'de yer alan bilgilerle ilgili değil. Bu maddeler, iş hukukuyla ilgili konuları ele almakta (fesih, iş sözleşmesi, askerlik, vb.). Boşanma davası açma süreci, bu maddelerde yer alan konularla ilgili değildir.",
+      "sources": [
+        {
+          "article_no": 20,
+          "article_type": "madde",
+          "article_title": "Fesih bildirimine itiraz ve usulü",
+          "repealed": false,
+          "score": 0.5234639
+        },
+        {
+          "article_no": 25,
+          "article_type": "madde",
+          "article_title": "İşverenin haklı nedenle derhal fesih hakkı",
+          "repealed": false,
+          "score": 0.46172494
+        },
+        {
+          "article_no": 31,
+          "article_type": "madde",
+          "article_title": "Askerlik ve kanundan doğan çalışma",
+          "repealed": false,
+          "score": 0.44616142
+        },
+        {
+          "article_no": 19,
+          "article_type": "madde",
+          "article_title": "Sözleşmenin feshinde usul",
+          "repealed": false,
+          "score": 0.44462752
+        },
+        {
+          "article_no": 21,
+          "article_type": "madde",
+          "article_title": "Geçersiz sebeple yapılan feshin sonuçları",
+          "repealed": false,
+          "score": 0.443656
+        }
+      ],
+      "disclaimer": "Bu bilgilendirme amaçlıdır, hukuki tavsiye değildir."
+    }
+  }
+]

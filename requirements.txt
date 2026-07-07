@@ -1,0 +1,13 @@
+# Pinned to the developer's verified working set (M8). torch is installed
+# separately in the Dockerfile from the CPU-only wheel index — see the
+# comment there for why it isn't listed here.
+fastapi==0.139.0
+python-multipart==0.0.32
+uvicorn==0.50.0
+pydantic-settings==2.13.1
+qdrant-client==1.18.0
+FlagEmbedding==1.4.0
+pypdf==6.14.2
+slowapi==0.1.10
+pytest==9.0.2
+httpx==0.28.1
