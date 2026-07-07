@@ -10,3 +10,7 @@ STATE.md
 docs/*.md
 journal/*.md
 .claude/commands/*.md
+
+# Local debug/testing scratch (never committed)
+analyze.json
+debug_*
