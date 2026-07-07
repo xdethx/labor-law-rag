@@ -1,0 +1,23 @@
+name: Keep-alive ping
+
+# HF Spaces free tier sleeps after 48h idle; Qdrant Cloud free tier suspends
+# after 1 week idle. /health touches both (it calls Qdrant's get_collection),
+# so one cron ping keeps the whole stack warm without an LLM call.
+#
+# Note: GitHub may pause scheduled workflows on a repo with no other
+# activity for 60+ days. Fine for an actively-maintained portfolio repo;
+# if the demo ever needs guaranteed pings, switch to an external uptime
+# pinger (UptimeRobot / cron-job.org) hitting the same URL.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Curl /health
+        run: |
+          curl -fsS "${{ vars.RAG_HEALTH_URL }}/health"

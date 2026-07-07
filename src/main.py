@@ -6,6 +6,7 @@ article actually retrieved; no supporting chunk -> say the corpus doesn't
 cover it; sources are always returned; the disclaimer is always appended.
 """
 
+import datetime
 import hmac
 import uuid
 from collections import Counter
@@ -13,6 +14,7 @@ from contextlib import asynccontextmanager
 from typing import Literal
 
 from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pypdf.errors import PyPdfError
 from slowapi import Limiter, _rate_limit_exceeded_handler
@@ -55,6 +57,19 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="is-kanunu-rag", lifespan=lifespan)
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+
+# CORS (M8): defense-in-depth. The BFF (Next.js route handlers) calls
+# server-side, never from a browser, so this only matters for stray
+# cross-origin requests. Empty CORS_ALLOWED_ORIGINS -> no middleware, no
+# cross-origin access at all.
+_cors_origins = [o.strip() for o in settings.cors_allowed_origins.split(",") if o.strip()]
+if _cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=_cors_origins,
+        allow_methods=["GET", "POST", "DELETE"],
+        allow_headers=["Authorization", "Content-Type"],
+    )
 
 
 class AskRequest(BaseModel):
@@ -135,6 +150,34 @@ def require_api_key(request: Request) -> None:
         raise HTTPException(status_code=401, detail="invalid or missing API key")
 
 
+# Global daily request budget across /ask + /analyze (M8 backstop for the
+# public demo — Groq's free tier exhausts fast under real traffic). In-memory,
+# day-keyed counter: resets on date rollover, AND on process restart, which is
+# an accepted limitation for a single-instance demo (no shared/durable counter).
+_daily_usage = {"date": "", "count": 0}
+
+
+def enforce_daily_cap(request: Request) -> None:
+    """Raise 429 once the day's global request budget is spent.
+
+    A no-op when DAILY_REQUEST_CAP is 0 (the default). Applied only to /ask
+    and /analyze — the two endpoints that make LLM calls.
+    """
+    if settings.daily_request_cap <= 0:
+        return
+
+    today = datetime.date.today().isoformat()
+    if _daily_usage["date"] != today:
+        _daily_usage["date"] = today
+        _daily_usage["count"] = 0
+
+    if _daily_usage["count"] >= settings.daily_request_cap:
+        raise HTTPException(
+            status_code=429, detail="Günlük demo kotası doldu, lütfen yarın tekrar deneyin."
+        )
+    _daily_usage["count"] += 1
+
+
 def _tag_for(chunk: dict) -> str:
     if chunk.get("source") == "contract":
         return f"[Sözleşme {chunk['clause_no']}]"
@@ -170,8 +213,13 @@ def build_prompt(question: str, chunks: list[dict]) -> tuple[str, str]:
 
 
 @app.post("/ask", response_model=AskResponse)
-@limiter.limit("10/minute")
-def ask(request: Request, body: AskRequest, _auth: None = Depends(require_api_key)) -> AskResponse:
+@limiter.limit(settings.rate_limit_ask)
+def ask(
+    request: Request,
+    body: AskRequest,
+    _auth: None = Depends(require_api_key),
+    _budget: None = Depends(enforce_daily_cap),
+) -> AskResponse:
     law_chunks = retrieve_law(body.question, top_k=settings.top_k_final)
     contract_chunks = retrieve_contract(body.question, body.session_id) if body.session_id else []
 
@@ -198,7 +246,7 @@ def ask(request: Request, body: AskRequest, _auth: None = Depends(require_api_ke
 
 
 @app.post("/contracts", response_model=ContractUploadResponse)
-@limiter.limit("5/minute")
+@limiter.limit(settings.rate_limit_contracts)
 def upload_contract(
     request: Request,
     file: UploadFile = File(...),
@@ -245,9 +293,12 @@ def upload_contract(
 
 
 @app.post("/analyze", response_model=AnalyzeResponse)
-@limiter.limit("3/minute")
+@limiter.limit(settings.rate_limit_analyze)
 def analyze(
-    request: Request, body: AnalyzeRequest, _auth: None = Depends(require_api_key)
+    request: Request,
+    body: AnalyzeRequest,
+    _auth: None = Depends(require_api_key),
+    _budget: None = Depends(enforce_daily_cap),
 ) -> AnalyzeResponse:
     """Evaluate every stored clause of a session against the law: per-clause
     retrieval -> strict-JSON verdict (validated, 1 retry) -> aggregated report.
