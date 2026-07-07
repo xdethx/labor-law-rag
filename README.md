@@ -14,8 +14,8 @@ A retrieval-augmented Q&A and contract-analysis service over Turkish Labor Law
 (İş Kanunu No. 4857). Every answer cites the exact article (madde) it's grounded
 in — no supporting text, no claim.
 
-**Live demo:** [frontend on Vercel](#) · **API health:** [HF Space `/health`](#)
-*(links added once deployed — see below)*
+**Live demo:** [labor-law-rag.vercel.app](https://labor-law-rag.vercel.app) ·
+**API health:** [HF Space `/health`](https://dethx-labor-law-rag.hf.space/health)
 
 ## What it does
 
@@ -30,15 +30,19 @@ a deliberate prompt-injection stance, since contract uploads are user-supplied.
 
 ## Architecture
 
-```
-                    OFFLINE (manual, never on the request path)
-  data/raw/is_kanunu.pdf --> parsing --> per-article chunks
-                             --> bge-m3 (dense + sparse) --> Qdrant `law`
-
-                    ONLINE (per request)
-  Browser --> Next.js (Vercel)          --> FastAPI (HF Spaces)      --> Qdrant Cloud
-              route handlers = BFF,         /ask /contracts /analyze     `law` + `contracts`
-              holds the API key server-side /health                  --> LLM (Groq)
+```mermaid
+flowchart TD
+    subgraph offline["Offline ingest (manual)"]
+        PDF[İş Kanunu PDF] --> Parser[Parser]
+        Parser --> Embed["bge-m3<br/>dense + sparse"]
+    end
+    subgraph online["Online (per request)"]
+        Browser[Browser] --> BFF["Next.js BFF · Vercel<br/>API key server-side"]
+        BFF --> API["FastAPI<br/>HF Spaces"]
+        API --> Qdrant[("Qdrant Cloud<br/>law + contracts")]
+        API --> LLM["Groq LLM"]
+    end
+    Embed --> Qdrant
 ```
 
 - **Retrieval**: hybrid dense + sparse search (Reciprocal Rank Fusion) over one
